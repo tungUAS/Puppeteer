@@ -1,10 +1,11 @@
-export interface uhr{
+export interface Uhr{
     name:string,
     description:string,
     price:number,
-    location:string
+    location:string,
+    link:string
 }
 
-export interface uhren{
-    uhr_info:uhr[]
+export interface Uhren{
+    uhr_info:Uhr[]
 }

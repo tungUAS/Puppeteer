@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
-import { uhr, uhren } from './models/uhr.model';
+import { Uhr, Uhren } from './models/uhr.model';
 import { CrawlService } from './services/crawl.service';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { DataSource, SelectionModel } from '@angular/cdk/collections';
@@ -32,7 +32,7 @@ export class AppComponent {
   }
 
   showList(){
-    this.crawlService.getAllUhren().subscribe((result:uhren)=>{
+    this.crawlService.getAllUhren().subscribe((result:Uhren)=>{
       this.uhrenDataSource = new MatTableDataSource(result.uhr_info);
       this.uhrenDataSource.paginator = this.pagintor;
       this.uhrenDataSource.sort = this.sort;
@@ -74,7 +74,9 @@ export class AppComponent {
     }
 
     saveIntoDB(){
-      console.log("hihi");
+      this.uhrenDataSource.data.forEach((data: Uhr) => {
+        this.crawlService.saveUhrIntoDB(data).subscribe();
+      });
     }
 
 }
