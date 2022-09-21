@@ -1,0 +1,106 @@
+<nav class="navbar navbar-dark bg-dark">
+  <span class="navbar-brand mb-0 h1">Fb2 UAS API</span>
+</nav>
+
+<div class="intro">
+  <h1>Uhren API</h1>
+  <h5>Building your own API</h5>
+</div>
+
+<div class="btn-toolbar d-flex">
+
+  <div class="input-group-text p-2" id="btnGroupAddon">GET</div>
+  <div class="get p-2 flex-grow-1">/uhren</div>
+  <button type="button" class="btn btn-secondary p-2" (click)="saveIntoDB()">Save into Database</button>
+  <button type="button" class="btn btn-secondary p-2" (click)="showList()">GET list of all watches</button>
+
+</div>
+
+<!-- <div class="table-bootstrap">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Price</th>
+        <th scope="col">Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let uhr of uhren | slice: (page-1) * pageSize : page * pageSize">
+        <th scope="row">{{i+1}}</th>
+        <td>{{uhr.name}}</td>
+        <td>{{uhr.description}}</td>
+        <td>{{uhr.price}}</td>
+        <td>{{uhr.location}}</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <ngb-pagination
+  class="d-flex justify-content-center"
+  [(page)]="page"
+  [pageSize]="pageSize"
+  [collectionSize]="uhren.length"></ngb-pagination>
+</div> -->
+
+<div class="mat-elevation-z8 ">
+  <table mat-table [dataSource]="uhrenDataSource" class="table" matSort (matSortChange)="announceSortChange($event)">
+        <!-- Position Column -->
+      <ng-container matColumnDef="#">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number"> # </th>
+        <td mat-cell *matCellDef="let row; index as i"> {{i + 1 + (paginator.pageIndex * paginator.pageSize)}} </td>
+      </ng-container>
+        
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Name. </th>
+      <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="description" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by description"> Description </th>
+      <td mat-cell *matCellDef="let row; index as i" (click)="goToLink(i + (paginator.pageIndex * paginator.pageSize))" 
+                style="cursor:pointer;"> {{row.description}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by price"> Price(€) </th>
+      <td mat-cell *matCellDef="let row"> {{row.price}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="location">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header sortActionDescription="Sort by location"> Location </th>
+      <td mat-cell *matCellDef="let row"> {{row.location}} </td>
+    </ng-container>
+
+    <!-- checkbox -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons 
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>

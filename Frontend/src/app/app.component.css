@@ -1,0 +1,32 @@
+.navbar-brand {
+    padding-left: 20px;
+}
+
+.intro{
+    margin-top:50px;
+    margin-left: 50px;
+}
+
+.intro h5{
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.btn-toolbar{
+    border-top: orange solid 1px;
+    border-bottom: orange solid 1px;
+    margin-left: 50px;
+    margin-top:50px;
+    width: 80%;
+}
+
+.table{
+    margin-left: 50px;
+    width: 80%;
+}
+
+.mat-paginator {
+    display: flex;
+    justify-content: center;
+  } 
+
