@@ -1,25 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { prof } from '../models/prof.model';
-import { uhr, uhren } from '../models/uhr.model';
+import { Uhr, Uhren } from '../models/uhr.model';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CrawlService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private config: ConfigService) { }
 
   getProfs(){
     return this.http.get('http://localhost:3000/profs');
   }
 
-  getAllUhren():Observable<uhren>{
-    return this.http.get<uhren>('http://localhost:3000/uhren');
+  getAllUhren():Observable<Uhren>{
+    return this.http.get<Uhren>('http://localhost:3000/uhren');
   }
 
-  saveUhrIntoDB(uhr:uhr){
-    return this.http.post<uhr>('http://localhost:3000/save',uhr);
+  saveUhrIntoDB(uhr:Uhr):Observable<Uhr>{
+    return this.http.post<Uhr>('http://localhost:3000/uhren/save',uhr).pipe();
   }
 }
