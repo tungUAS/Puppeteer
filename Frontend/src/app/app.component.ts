@@ -17,7 +17,7 @@ export class AppComponent {
   appear:boolean = false;
   public page = 1;
   public pageSize = 10;
-  displayedColumns = ['#','name','description','price','location','select'];
+  displayedColumns = ['#','name','description','price','location','select','note'];
   uhrenDataSource :any;
   selection = new SelectionModel(true, []);
 

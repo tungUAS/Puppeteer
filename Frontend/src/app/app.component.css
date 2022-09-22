@@ -30,3 +30,6 @@
     justify-content: center;
 }
 
+.mat-cell{
+    vertical-align: baseline!important;
+}

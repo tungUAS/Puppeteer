@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
-
+const scheduledFunctions = require('./cronjob');
 
 var app = express();
 
@@ -43,6 +43,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// ADD CALL to execute your function(s)
+scheduledFunctions.initScheduledJobs();
 
 console.log("App is running ...");
 

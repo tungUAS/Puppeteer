@@ -16,35 +16,6 @@
 
 </div>
 
-<!-- <div class="table-bootstrap">
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Description</th>
-        <th scope="col">Price</th>
-        <th scope="col">Location</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let uhr of uhren | slice: (page-1) * pageSize : page * pageSize">
-        <th scope="row">{{i+1}}</th>
-        <td>{{uhr.name}}</td>
-        <td>{{uhr.description}}</td>
-        <td>{{uhr.price}}</td>
-        <td>{{uhr.location}}</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <ngb-pagination
-  class="d-flex justify-content-center"
-  [(page)]="page"
-  [pageSize]="pageSize"
-  [collectionSize]="uhren.length"></ngb-pagination>
-</div> -->
 
 <div class="mat-elevation-z8 ">
   <table mat-table [dataSource]="uhrenDataSource" class="table" matSort (matSortChange)="announceSortChange($event)">
@@ -78,6 +49,16 @@
       <th mat-header-cell *matHeaderCellDef  mat-sort-header sortActionDescription="Sort by location"> Location </th>
       <td mat-cell *matCellDef="let row"> {{row.uhr_location}} </td>
     </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="note">
+        <th mat-header-cell *matHeaderCellDef> Note </th>
+        <mat-cell *matCellDef="let row;" [formGroup]="row">
+          <mat-form-field floatLabel="never">
+            <input matInput placeholder="Note" formControlName="Note" required>
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
 
     <!-- checkbox -->
     <ng-container matColumnDef="select">
