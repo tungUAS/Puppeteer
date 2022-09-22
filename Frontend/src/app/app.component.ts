@@ -74,6 +74,7 @@ export class AppComponent {
     }
 
     saveIntoDB(){
+      if(this.uhrenDataSource.data === null) alert('No data');
       this.uhrenDataSource.data.forEach((data: Uhr) => {
         this.crawlService.saveUhrIntoDB(data).subscribe();
       });

@@ -18,7 +18,7 @@ export class CrawlService {
   }
 
   getAllUhren():Observable<Uhren>{
-    return this.http.get<Uhren>('http://localhost:3000/uhren');
+    return this.http.get<Uhren>('http://localhost:3000/uhren/get');
   }
 
   saveUhrIntoDB(uhr:Uhr):Observable<Uhr>{

@@ -1,9 +1,9 @@
 export interface Uhr{
-    name:string,
-    description:string,
-    price:number,
-    location:string,
-    link:string
+    uhr_name:string,
+    uhr_description:string,
+    uhr_price:number,
+    uhr_location:string,
+    uhr_link:string
 }
 
 export interface Uhren{
