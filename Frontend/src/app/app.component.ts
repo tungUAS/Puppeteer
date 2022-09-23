@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
-import { Uhr, Uhren } from './models/uhr.model';
+import { Uhr, Uhren, uhrUpdate } from './models/uhr.model';
 import { CrawlService } from './services/crawl.service';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { DataSource, SelectionModel } from '@angular/cdk/collections';
@@ -14,12 +14,13 @@ import { DataSource, SelectionModel } from '@angular/cdk/collections';
 })
 export class AppComponent {
 
+  public note : string;
   appear:boolean = false;
   public page = 1;
   public pageSize = 10;
-  displayedColumns = ['#','name','description','price','location','select','note'];
+  displayedColumns = ['#','name','description','price','location','note','save'];
   uhrenDataSource :any;
-  selection = new SelectionModel(true, []);
+
 
   @ViewChild(MatPaginator) pagintor: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -58,26 +59,14 @@ export class AppComponent {
       }
     }
 
-    /** Whether the number of selected elements matches the total number of rows. */
-    isAllSelected() {
-      const numSelected = this.selection.selected.length;
-      const numRows = this.uhrenDataSource.data.length;
-      console.log(numRows);
-      return numSelected === numRows;
-    }
-  
-    /** Selects all rows if they are not all selected; otherwise clear selection. */
-    masterToggle() {
-      this.isAllSelected() ?
-          this.selection.clear() :
-          this.uhrenDataSource.data.forEach(row => this.selection.select(row));
+
+    valuechange() {
+      console.log(this.note);
     }
 
-    saveIntoDB(){
-      if(this.uhrenDataSource.data === null) alert('No data');
-      this.uhrenDataSource.data.forEach((data: Uhr) => {
-        this.crawlService.saveUhrIntoDB(data).subscribe();
-      });
+    updateDB(uhr_link:string,uhr_note:string){
+      console.log("here")
+      this.crawlService.updateUhrDB({uhr_link,uhr_note});
     }
 
 }

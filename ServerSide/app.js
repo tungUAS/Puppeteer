@@ -10,6 +10,7 @@ var app = express();
 
 app.use(cors());
 
+
 var indexRouter = require('./routes/index');
 var profsRouter = require('./routes/profs');
 var uhrenRouter = require('./routes/uhren');
@@ -44,8 +45,9 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+
 // ADD CALL to execute your function(s)
-scheduledFunctions.initScheduledJobs();
+// scheduledFunctions.initScheduledJobs();
 
 console.log("App is running ...");
 

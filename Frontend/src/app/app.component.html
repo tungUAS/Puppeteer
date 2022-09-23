@@ -55,26 +55,16 @@
         <th mat-header-cell *matHeaderCellDef> Note </th>
         <mat-cell *matCellDef="let row;" [formGroup]="row">
           <mat-form-field floatLabel="never">
-            <input matInput placeholder="Note" formControlName="Note" required>
+            <input matInput type="text" [(ngModel)]="row.uhr_note" placeholder="{{row.uhr_note}}" required>
           </mat-form-field>
         </mat-cell>
       </ng-container>
 
-    <!-- checkbox -->
-    <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef>
-        <mat-checkbox (change)="$event ? masterToggle() : null"
-                      [checked]="selection.hasValue() && isAllSelected()"
-                      [indeterminate]="selection.hasValue() && !isAllSelected()">
-        </mat-checkbox>
-      </th>
-      <td mat-cell *matCellDef="let row">
-        <mat-checkbox (click)="$event.stopPropagation()"
-                      (change)="$event ? selection.toggle(row) : null"
-                      [checked]="selection.isSelected(row)">
-        </mat-checkbox>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="save">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header sortActionDescription="Sort by location"> Save </th>
+        <td mat-cell *matCellDef="let row"> <button mat-button (click)="updateDB(row.uhr_link,row.uhr_note)">Update</button> </td>
+      </ng-container>
+
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -84,5 +74,5 @@
                  showFirstLastButtons 
                  aria-label="Select page of periodic elements">
   </mat-paginator>
-  <button type="button" class="btn btn-secondary saveIntoDB" (click)="saveIntoDB()">Save into Database</button>
+
 </div>

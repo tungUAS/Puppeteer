@@ -6,7 +6,7 @@ let page = null;
 
 exports.initScheduledJobs = () => {
     // cronjob running every 3 hours
-    const scheduledJobFunction = cron.schedule("0 0 */3 * * *",async function(){
+    const scheduledJobFunction = cron.schedule("* * */3 * * *", async ()=>{
         console.log("Puppeteer is running...");
         var regex = /[+-]?\d+(\.\d+)?/g;
 
@@ -61,7 +61,9 @@ exports.initScheduledJobs = () => {
         
         uhren.forEach(async uhr=>{
             const {name,description,price,location,link} = uhr;
-            const sql = "INSERT IGNORE INTO UhrTracker.Rotbeer (uhr_name,uhr_description,uhr_price,uhr_location,uhr_link) VALUES('"+name+"','"+description+"',"+price+",'"+location+"','"+link+"') ";
+            // set note to empty at first
+            const note = '';
+            const sql = "INSERT IGNORE INTO UhrTracker.Rotbeer (uhr_name,uhr_description,uhr_price,uhr_location,uhr_link,uhr_note) VALUES('"+name+"','"+description+"',"+price+",'"+location+"','"+link+"','"+note+"') ";            
             await db.query(sql).then(result=>{console.log(result)}).catch(err=>{console.log(err)});
         });
     });
