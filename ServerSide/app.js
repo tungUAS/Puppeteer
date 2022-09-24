@@ -47,7 +47,7 @@ app.use(function(err, req, res, next) {
 
 
 // ADD CALL to execute your function(s)
-// scheduledFunctions.initScheduledJobs();
+scheduledFunctions.initScheduledJobs();
 
 console.log("App is running ...");
 

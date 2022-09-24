@@ -1,3 +1,4 @@
+const { json } = require('express');
 var express = require('express');
 var router = express.Router();
 const db = require('../database');
@@ -43,6 +44,28 @@ router.put('/update', async (req,res)=>{
       }).catch(error=>{
         return res.json({"error":error});
       })
+})
+
+router.get('/get/note', async(req,res)=>{
+  // get all watches that uhr_note is not empty
+  try{
+    db.table('Rotbeer')
+      .filter({uhr_note :{$ne:''}})
+      .withFields([
+        'uhr_name',
+        'uhr_description',
+        'uhr_price',
+        'uhr_location',
+        'uhr_link',
+        'uhr_note'
+      ])
+      .getAll()
+      .then(list=>{
+          return res.json({"uhr_info":list});
+      })
+  }catch(error){
+    return res.json(error);
+  }
 })
 
 module.exports = router;

@@ -10,7 +10,7 @@
 <div class="btn-toolbar d-flex">
 
   <div class="input-group-text p-2" id="btnGroupAddon">GET</div>
-  <div class="get p-2 flex-grow-1">/uhren</div>
+  <div class="get p-2 flex-grow-1">/uhren/get</div>
 
   <button type="button" class="btn btn-secondary p-2" (click)="showList()">GET list of all watches</button>
 
@@ -68,6 +68,66 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons 
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
+
+</div>
+
+<div class="btn-toolbar d-flex">
+
+  <div class="input-group-text p-2" id="btnGroupAddon">GET</div>
+  <div class="get p-2 flex-grow-1">/uhren/get/note</div>
+
+  <button type="button" class="btn btn-secondary p-2" (click)="showListInterest()">GET list of interested watches</button>
+
+</div>
+
+<div class="mat-elevation-z8 ">
+  <table mat-table [dataSource]="interestDataSource" class="table" matSort (matSortChange)="announceSortChange($event)">
+        <!-- Position Column -->
+      <ng-container matColumnDef="#">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number"> # </th>
+        <td mat-cell *matCellDef="let row; index as i"> {{i + 1 + (paginator.pageIndex * paginator.pageSize)}} </td>
+      </ng-container>
+        
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Name. </th>
+      <td mat-cell *matCellDef="let row"> {{row.uhr_name}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="description" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by description"> Description </th>
+      <td mat-cell *matCellDef="let row; index as i" (click)="goToLink(i + (paginator.pageIndex * paginator.pageSize))" 
+                style="cursor:pointer;"> {{row.uhr_description}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by price"> Price(€) </th>
+      <td mat-cell *matCellDef="let row"> {{row.uhr_price}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="location">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header sortActionDescription="Sort by location"> Location </th>
+      <td mat-cell *matCellDef="let row"> {{row.uhr_location}} </td>
+    </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="note">
+        <th mat-header-cell *matHeaderCellDef> Note </th>
+        <td mat-cell *matCellDef="let row"> {{row.uhr_note}} </td>
+      </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsInterest"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsInterest;"></tr>
   </table>
 
   <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]"

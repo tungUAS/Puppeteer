@@ -22,6 +22,10 @@ export class CrawlService {
     return this.http.get<Uhren>('http://localhost:3000/uhren/get');
   }
 
+  getInterestedUhren():Observable<Uhren>{
+    return this.http.get<Uhren>('http://localhost:3000/uhren/get/note');
+  }
+
   // cant use pipe
   // why ?
   updateUhrDB(update:uhrUpdate){

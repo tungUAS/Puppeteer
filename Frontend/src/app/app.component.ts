@@ -18,8 +18,10 @@ export class AppComponent {
   appear:boolean = false;
   public page = 1;
   public pageSize = 10;
+  displayedColumnsInterest = ['#','name','description','price','location','note'];
   displayedColumns = ['#','name','description','price','location','note','save'];
   uhrenDataSource :any;
+  interestDataSource :any;
 
 
   @ViewChild(MatPaginator) pagintor: MatPaginator;
@@ -40,6 +42,14 @@ export class AppComponent {
       console.log(this.uhrenDataSource);
     })
     
+  }
+
+  showListInterest(){
+    this.crawlService.getInterestedUhren().subscribe((result:Uhren)=>{
+      console.log(result.uhr_info);
+      this.interestDataSource = new MatTableDataSource(result.uhr_info);
+      console.log(this.interestDataSource);
+    })
   }
 
   goToLink(index:number){
