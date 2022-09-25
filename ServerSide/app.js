@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cors = require('cors');
 const scheduledFunctions = require('./cronjob');
 
+
 var app = express();
 
 app.use(cors());
